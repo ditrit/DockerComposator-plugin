@@ -355,7 +355,8 @@ class DockerComposatorListener {
   /**
    * Function called to convert lidy type to Leto type.
    * @param {string} lidyType - The lidy attribute type that must be converted.
-   * @returns {string | null} - The corresponding Leto type or null if lidyType isn't one from the list.
+   * @returns {string | null} - The corresponding Leto type or null if
+   * lidyType isn't one from the list.
    */
   lidyToLetoType(lidyType) {
     switch (lidyType) {

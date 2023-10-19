@@ -150,7 +150,8 @@ class DockerComposatorMetadata extends DefaultMetadata {
 
   /**
    * Set the childrenTypes of all containers from children's parentTypes.
-   * @param {DockerComposatorComponentDefinition[]} componentDefinitions - Array of component definitions.
+   * @param {DockerComposatorComponentDefinition[]} componentDefinitions - Array of
+   * component definitions.
    */
   setChildrenTypes(componentDefinitions) {
     const children = componentDefinitions

@@ -65,7 +65,6 @@ class DockerComposatorParser extends DefaultParser {
           global: false,
         },
       });
-      // const listener = new DockerComposatorListener(input, this.pluginData.definitions.components);
       this.listener.fileInformation = input;
       this.listener.definitions = this.pluginData.definitions.components;
       this.listener.components = this.pluginData.components;
