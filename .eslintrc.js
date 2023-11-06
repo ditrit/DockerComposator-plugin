@@ -32,8 +32,8 @@ module.exports = {
   ignorePatterns: [
     'docs/*',
     'dist/*',
+    'src/lidy/*',
     'src/assets/index.js',
-    'src/antlr/*',
   ],
 
   // add your custom rules here
