@@ -12,7 +12,8 @@
     "lint:report": "eslint --max-warnings=0 --ext .js src -f json-relative > eslint.json",
     "prepare:docs": "sed -i 's#taffydb#@jsdoc/salty#g' node_modules/better-docs/publish.js",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "generate:parser": "node scripts/generate_parser.js"
   },
   "repository": {
     "type": "git",
