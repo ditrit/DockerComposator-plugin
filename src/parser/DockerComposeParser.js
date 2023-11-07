@@ -1,31 +1,89 @@
 import { DefaultParser } from 'leto-modelizer-plugin-core';
+import { parse as lidyParse } from 'src/lidy/dockerComposeGrammar';
+import DockerComposeListener from 'src/parser/DockerComposeListener';
 
 /**
- * Class to parse and retrieve components/links from DockerCompose files.
+ * Class to parse and retrieve components/links from Docker compose files.
  */
 class DockerComposeParser extends DefaultParser {
   /**
-   * Indicate if this parser can parse this file.
-   * @returns {boolean} Boolean that indicates if this file can be parsed or not.
+   * Default constructor.
+   * @param {PluginData} [pluginData] - pluginData - Plugin data with components
    */
-  isParsable() {
-    return false;
+  constructor(pluginData) {
+    super(pluginData);
+    /**
+     * listener
+     * @param {DockerComposeListener} listener
+     */
+    this.listener = new DockerComposeListener();
   }
 
   /**
-   * Get the list of model paths from all files.
-   * @returns {string[]} List of folder paths that represent a model.
+   * Indicate if this parser can parse this file.
+   * @param {FileInformation} [fileInformation] - File information.
+   * @returns {boolean} Boolean that indicates if this file can be parsed or not.
    */
-  getModels() {
-    return [];
+  isParsable(fileInformation) {
+    return /\.ya?ml$/.test(fileInformation.path);
   }
 
   /**
    * Convert the content of files into Components.
+   * @param {FileInformation} diagram - Diagram file information.
+   * @param {FileInput[]} [inputs=[]] - Data you want to parse.
+   * @param {string} [parentEventId=null] - Parent event id.
    */
-  parse() {
+  parse(diagram, inputs = [], parentEventId = null) {
     this.pluginData.components = [];
     this.pluginData.parseErrors = [];
+
+    inputs.filter(({ content, path }) => {
+      if (diagram.path === path && content && content.trim() !== '') {
+        return true;
+      }
+      this.pluginData.emitEvent({
+        parent: parentEventId,
+        type: 'Parser',
+        action: 'read',
+        status: 'warning',
+        files: [path],
+        data: {
+          code: 'no_content',
+          global: false,
+        },
+      });
+      return false;
+    }).forEach((input) => {
+      const id = this.pluginData.emitEvent({
+        parent: parentEventId,
+        type: 'Parser',
+        action: 'read',
+        status: 'running',
+        files: [input.path],
+        data: {
+          global: false,
+        },
+      });
+      this.listener.fileInformation = input;
+      this.listener.definitions = this.pluginData.definitions.components;
+      this.listener.components = this.pluginData.components;
+      lidyParse({
+        src_data: input.content,
+        listener: this.listener,
+        path: input.path,
+        prog: {
+          errors: [],
+          warnings: [],
+          imports: [],
+          alreadyImported: [],
+          root: [],
+        },
+      });
+      this.listener.childComponentsByType = {};
+
+      this.pluginData.emitEvent({ id, status: 'success' });
+    });
   }
 }
 
