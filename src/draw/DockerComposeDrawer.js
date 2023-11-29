@@ -23,7 +23,8 @@ class DockerComposeDrawer extends DefaultDrawer {
       ...options,
       minHeight: 80,
       minWidth: 110,
-      margin: 5,
+      margin: 10,
+      padding: 20,
     });
   }
 }

@@ -1,27 +1,8 @@
 # Dockercomposator-plugin
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=alert_status)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=reliability_rating)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=security_rating)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=code_smells)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=bugs)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=sqale_index)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=ncloc)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=coverage)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ditrit_dockercomposator-plugin&metric=duplicated_lines_density)](https://sonarcloud.io/summary/overall?id=ditrit_dockercomposator-plugin)
-
 [![](https://dcbadge.vercel.app/api/server/zkKfj9gj2C?style=flat&theme=default-inverted)](https://discord.gg/zkKfj9gj2C)
 
 Plugin for managing DockerCompose files in [Leto-Modelizer](https://github.com/ditrit/leto-modelizer).
-
-## Requirements
-
-* node - [v18.4](https://nodejs.org/en/blog/release/v18.4.0)
-* npm - [v8.19.3](https://www.npmjs.com/package/npm/v/8.19.3)
 
 ## Build your plugin
 
@@ -29,7 +10,72 @@ Plugin for managing DockerCompose files in [Leto-Modelizer](https://github.com/d
 npm run build
 ```
 
+## Grammar
+
+We use the grammar of the [docker-compose specification](https://github.com/compose-spec/compose-spec/blob/master/spec.md) that we translated to the syntax of the parser generator tool [Lidy](https://github.com/ditrit/lidy-js).
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Legends</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">$\textcolor{green}{\textbf{\Large{✓}}}$</td>
+      <td>Full support</td>
+    </tr>
+    <tr>
+      <td align="center">$\textcolor{orange}{\textsf{〜}}$</td>
+      <td>Partial support</td>
+    </tr>
+    <tr>
+      <td align="center">$\textcolor{red}{\textbf{\textsf{X}}}$</td>
+      <td>Not supported but planned</td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th colspan="6">Functionalities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="5">Service</td>
+      <td align="center">$\textcolor{green}{\Large{✓}}$</td>
+    </tr>
+    <tr>
+      <td colspan="5">Volume</td>
+      <td align="center">$\textcolor{green}{\Large{✓}}$</td>
+    </tr>
+    <tr>
+      <td colspan="5">Network</td>
+      <td align="center">$\textcolor{green}{\Large{✓}}$</td>
+    </tr>
+    <tr>
+      <td colspan="5">Config</td>
+      <td align="center">$\textcolor{green}{\Large{✓}}$</td>
+    </tr>
+    <tr>
+      <td colspan="5">Secret</td>
+      <td align="center">$\textcolor{green}{\Large{✓}}$</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Development
+
+### Generate the parser
+
+We use a [script](scripts/generate_parser.js) to generate the Docker-Compose parser.
+
+You can directly run:
+
+```
+npm run generate:parser
+```
 
 ### How to release
 

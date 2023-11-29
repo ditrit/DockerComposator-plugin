@@ -1,0 +1,365 @@
+[
+  {
+    "type": "Docker-Compose",
+    "description": "Represents the Compose file, it's the parent of all other components and it contains the top-level version property",
+    "url": "https://docs.docker.com/compose/compose-file/03-compose-file",
+    "model": "DefaultContainer",
+    "displayName": "Docker Compose",
+    "icon": "compose",
+    "isContainer": true,
+    "attributes": [
+      {
+        "name": "version",
+        "type": "String",
+        "required": true
+      }
+    ]
+  },
+  {
+    "type": "Service",
+    "description": "A service is an abstract definition of a computing resource within an application which can be scaled or replaced independently from other components. Services are backed by a set of containers",
+    "url": "https://docs.docker.com/compose/compose-file/05-services/",
+    "model": "DefaultModel",
+    "icon": "service",
+    "displayName": "Service",
+    "isContainer": false,
+    "attributes": [
+      {
+        "name": "image",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "build",
+        "type": "Object",
+        "expanded": true,
+        "attributes": [
+          {
+            "name": "context",
+            "type": "String"
+          },
+          {
+            "name": "dockerfile",
+            "type": "String"
+          },
+          {
+            "name": "args",
+            "type": "Array",
+            "attributes": [
+              {
+                "name": null,
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "depends_on",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "Object",
+            "attributes": [
+              {
+                "name": "service",
+                "type": "Link",
+                "linkRef": "Service",
+                "linkColor": "red"
+              },
+              {
+                "name": "condition",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "environment",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "ports",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "healthcheck",
+        "type": "Object",
+        "expanded": true,
+        "attributes": [
+          {
+            "name": "test",
+            "type": "String"
+          },
+          {
+            "name": "interval",
+            "type": "String"
+          },
+          {
+            "name": "timeout",
+            "type": "String"
+          },
+          {
+            "name": "retries",
+            "type": "Number"
+          }
+        ]
+      },
+      {
+        "name": "networks",
+        "type": "Link",
+        "linkRef": "Network",
+        "linkColor": "purple"
+      },
+      {
+        "name": "volumes",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "Object",
+            "attributes": [
+              {
+                "name": "volume-name",
+                "type": "Link",
+                "linkRef": "Volume",
+                "linkColor": "green"
+              },
+              {
+                "name": "mount-path",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "configs",
+        "type": "Link",
+        "linkRef": "Config",
+        "linkColor": "blue"
+      },
+      {
+        "name": "secrets",
+        "type": "Link",
+        "linkRef": "Secret",
+        "linkColor": "pink"
+      },
+      {
+        "name": "command",
+        "type": "String"
+      },
+      {
+        "name": "stdin_open",
+        "type": "Boolean"
+      },
+      {
+        "name": "privileged",
+        "type": "Boolean"
+      },
+      {
+        "name": "tty",
+        "type": "Boolean"
+      }
+    ]
+  },
+  {
+    "type": "Volume",
+    "description": "Volumes are persistent data stores implemented by the container engine.",
+    "url": "https://docs.docker.com/compose/compose-file/07-volumes/",
+    "model": "DefaultModel",
+    "icon": "volume",
+    "displayName": "Volume",
+    "isContainer": false,
+    "attributes": [
+      {
+        "name": "driver",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "driver_opts",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "labels",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "external",
+        "type": "Boolean"
+      }
+    ]
+  },
+  {
+    "type": "Network",
+    "description": "Networks are the layer that allow services to communicate with each other.",
+    "url": "https://docs.docker.com/compose/compose-file/06-networks/",
+    "model": "DefaultModel",
+    "icon": "network",
+    "displayName": "Network",
+    "isContainer": false,
+    "attributes": [
+      {
+        "name": "driver",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "driver_opts",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "enable_ipv6",
+        "type": "Boolean"
+      },
+      {
+        "name": "ipam",
+        "type": "Object",
+        "expanded": true,
+        "attributes": [
+          {
+            "name": "driver",
+            "type": "String"
+          },
+          {
+            "name": "config",
+            "type": "Object",
+            "attributes": [
+              {
+                "name": "subnet",
+                "type": "String"
+              },
+              {
+                "name": "ip_range",
+                "type": "String"
+              },
+              {
+                "name": "gateway",
+                "type": "Array"
+              },
+              {
+                "name": "aux_adresses",
+                "type": "Array",
+                "attributes": [
+                  {
+                    "name": "host",
+                    "type": "String"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "options",
+            "type": "Array",
+            "attributes": [
+              {
+                "name": null,
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "labels",
+        "type": "Array",
+        "attributes": [
+          {
+            "name": null,
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "external",
+        "type": "Boolean"
+      }
+    ]
+  },
+  {
+    "type": "Config",
+    "description": "Configs allow services to adapt their behaviour without the need to rebuild a Docker image. Services can only access configs when explicitly granted by a configs attribute within the services top-level element.",
+    "url": "https://docs.docker.com/compose/compose-file/08-configs/",
+    "model": "DefaultModel",
+    "icon": "config",
+    "displayName": "Config",
+    "isContainer": false,
+    "attributes": [
+      {
+        "name": "file",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "String"
+      },
+      {
+        "name": "external",
+        "type": "Boolean"
+      }
+    ]
+  },
+  {
+    "type": "Secret",
+    "description": "Secrets are a flavor of Configs focusing on sensitive data, with specific constraint for this usage.",
+    "url": "https://docs.docker.com/compose/compose-file/09-secrets/",
+    "model": "DefaultModel",
+    "icon": "secret",
+    "displayName": "Secret",
+    "isContainer": false,
+    "attributes": [
+      {
+        "name": "file",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "String"
+      },
+      {
+        "name": "environment",
+        "type": "String"
+      },
+      {
+        "name": "external",
+        "type": "Boolean"
+      }
+    ]
+  }
+]

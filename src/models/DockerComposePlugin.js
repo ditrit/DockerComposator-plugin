@@ -1,7 +1,7 @@
 import {
   DefaultPlugin,
-  DefaultData,
 } from 'leto-modelizer-plugin-core';
+import DockerComposeData from 'src/models/DockerComposeData';
 import DockerComposeDrawer from 'src/draw/DockerComposeDrawer';
 import DockerComposeMetadata from 'src/metadata/DockerComposeMetadata';
 import DockerComposeParser from 'src/parser/DockerComposeParser';
@@ -10,20 +10,23 @@ import DockerComposeConfiguration from 'src/models/DockerComposeConfiguration';
 import packageInfo from 'package.json';
 
 /**
- * DockerCompose plugin.
+ * Docker compose plugin.
  */
 class DockerComposePlugin extends DefaultPlugin {
   /**
    * Default constructor.
-   * @param {object} [props] - Object that contains all properties to set.
-   * @param {object} [props.event] - Event manager.
-   * @param {Function} [props.event.next] - Function to emit event.
+   * @param {object} props - Plugin properties.
+   * @param {string} props.event - Event data.
    */
   constructor(props = {
     event: null,
   }) {
-    const configuration = new DockerComposeConfiguration();
-    const pluginData = new DefaultData(configuration, {
+    const configuration = new DockerComposeConfiguration({
+      defaultFileName: 'docker-compose.yaml',
+      defaultFileExtension: 'yaml',
+    });
+
+    const pluginData = new DockerComposeData(configuration, {
       name: packageInfo.name,
       version: packageInfo.version,
     }, props.event);
